@@ -1,24 +1,29 @@
-import { useState } from "react";
-import { books } from "../data/books";
+import { useEffect, useState } from "react";
+import { books } from "../../data/books";
 import "./Books.css";
 
 const Books = () => {
   const [selectedGenre, setSelectedGenre] = useState("Todos");
+  const [filteredBooks, setFilteredBooks] = useState(books.library);
 
   const genres = [
     ...new Set(books.library.map((item) => item.book.genre)),
     "Todos",
   ];
 
-  const filteredBooks =
-    selectedGenre === "Todos"
-      ? books.library
-      : books.library.filter((item) => item.book.genre === selectedGenre);
-
   const totalBooks = filteredBooks.length;
   const readingListCount = filteredBooks.filter(
     (item) => item.book.inReadingList
   ).length;
+
+  useEffect(() => {
+    const updatedFilteredBooks =
+      selectedGenre === "Todos"
+        ? books.library
+        : books.library.filter((item) => item.book.genre === selectedGenre);
+
+    setFilteredBooks(updatedFilteredBooks);
+  }, [selectedGenre, books.library]);
 
   return (
     <div>

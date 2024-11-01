@@ -1,6 +1,10 @@
-import { API_URL } from "../constant";
+import { API_URL } from "../../constant";
+import { LoginParams, LoginResponse } from "../../interfaces/loginInterface";
 
-export const login = async (email, password) => {
+export const login = async ({
+  email,
+  password,
+}: LoginParams): Promise<LoginResponse> => {
   const response = await fetch(`${API_URL}/Login`, {
     method: "POST",
     headers: {

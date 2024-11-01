@@ -6,7 +6,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="containerLogin">
+    <form className="containerLogin">
       <h2 className="title">Iniciar Sesión</h2>
       <input
         type="email"
@@ -23,7 +23,7 @@ const Login = () => {
         className="input"
       />
       <button className="button">Iniciar Sesión</button>
-    </div>
+    </form>
   );
 };
 
