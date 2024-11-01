@@ -1,0 +1,51 @@
+/* Books.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 15px 0;
+  padding: 20px;
+  transition: transform 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+li:hover {
+  transform: scale(1.02);
+}
+
+h2 {
+  color: #3669c9;
+}
+
+p {
+  color: #555;
+}
+
+img {
+  width: 200px; /* Ancho fijo */
+  height: 300px; /* Altura fija */
+  object-fit: cover; /* Mantiene la proporción de la imagen y recorta si es necesario */
+  border-radius: 4px; /* Bordes redondeados */
+  margin-top: 10px;
+}

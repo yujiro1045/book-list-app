@@ -1,4 +1,4 @@
-import { API_URL } from "../constants";
+import { API_URL } from "../constant";
 
 export const login = async (email, password) => {
   const response = await fetch(`${API_URL}/Login`, {
