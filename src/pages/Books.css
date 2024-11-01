@@ -1,5 +1,3 @@
-/* Books.css */
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -43,9 +41,9 @@ p {
 }
 
 img {
-  width: 200px; /* Ancho fijo */
-  height: 300px; /* Altura fija */
-  object-fit: cover; /* Mantiene la proporción de la imagen y recorta si es necesario */
-  border-radius: 4px; /* Bordes redondeados */
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 4px;
   margin-top: 10px;
 }
