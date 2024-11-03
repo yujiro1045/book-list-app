@@ -2,24 +2,14 @@ import React, { useEffect, useState } from "react";
 import { books } from "../../data/books";
 import "./Books.css";
 import CustomButton from "../../components/common/button/CustomButton";
-import { Book } from "../../interfaces/booksInterface";
+import { Book } from "../../types/booksInterface";
+import useBookStore from "../../store/useBookStore";
 
-const Books: React.FC<Book> = ({
-  ISBN,
-  author,
-  cover,
-  genre,
-  onRemove,
-  pages,
-  synopsis,
-  title,
-  year,
-}) => {
+const Books: React.FC<Book> = () => {
   const [selectedGenre, setSelectedGenre] = useState("Todos");
   const [filteredBooks, setFilteredBooks] = useState(books.library);
-  const [readingList, setReadingList] = useState(
-    JSON.parse(localStorage.getItem("listBooks")) || []
-  );
+  const { readingList, addToReadingList, removeFromReadingList } =
+    useBookStore();
 
   const genres = [
     ...new Set(books.library.map((item) => item.book.genre)),
@@ -37,17 +27,12 @@ const Books: React.FC<Book> = ({
     setFilteredBooks(updatedFilteredBooks);
   }, [selectedGenre, books.library]);
 
-  const toggleFavorite = (book) => {
-    if (readingList.find((fav) => fav.ISBN === book.ISBN)) {
-      const updatedFavorites = readingList.filter(
-        (fav) => fav.ISBN !== book.ISBN
-      );
-      setReadingList(updatedFavorites);
-      localStorage.setItem("listBooks", JSON.stringify(updatedFavorites));
+  const toggleFavorite = (book: Book) => {
+    const isFavorite = readingList.find((fav) => fav.ISBN === book.ISBN);
+    if (isFavorite) {
+      removeFromReadingList(book.ISBN);
     } else {
-      const updatedFavorites = [...readingList, book];
-      setReadingList(updatedFavorites);
-      localStorage.setItem("listBooks", JSON.stringify(updatedFavorites));
+      addToReadingList(book);
     }
   };
 
@@ -81,7 +66,6 @@ const Books: React.FC<Book> = ({
             <p>Autor: {item.book.author.name}</p>
             <p>Sinopsis: {item.book.synopsis}</p>
             <p>Año: {item.book.year}</p>
-            <p>ISBN: {item.book.ISBN}</p>
             <p>Otros libros: {item.book.author.otherBooks.join(", ")}</p>
             <CustomButton
               size="small"

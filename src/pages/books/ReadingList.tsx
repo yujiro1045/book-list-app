@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Book } from "../../interfaces/booksInterface";
 import Card from "../../components/common/card/Card";
+import useBookStore from "../../store/useBookStore";
 
 const ReadingList: React.FC = () => {
-  const [readingList, setReadingList] = useState<Book[]>([]);
+  const { readingList, removeFromReadingList, setReadingList } = useBookStore();
 
-  const handleRemoveBook = (index: number) => {
-    const updateList = readingList.filter((_, i) => i !== index);
-    setReadingList(updateList);
-    localStorage.setItem("listBooks", JSON.stringify(updateList));
+  const handleRemoveBook = (ISBN: string) => {
+    removeFromReadingList(ISBN);
   };
 
   useEffect(() => {
@@ -16,7 +15,7 @@ const ReadingList: React.FC = () => {
       localStorage.getItem("listBooks") || []
     ) as Book[];
     setReadingList(storedList);
-  }, []);
+  }, [setReadingList]);
 
   return (
     <div className="card-container">
@@ -27,10 +26,10 @@ const ReadingList: React.FC = () => {
             <Card
               key={index}
               title={book.title}
-              author={book.author.name}
+              author={book.author?.name}
               year={book.year}
               cover={book.cover}
-              onRemove={() => handleRemoveBook(index)}
+              onRemove={() => handleRemoveBook(book.ISBN)}
             />
           ))
         ) : (
