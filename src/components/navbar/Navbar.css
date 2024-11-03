@@ -8,6 +8,10 @@
   width: 100%;
 }
 
+.titleNavbar {
+  color: #fff;
+}
+
 .nav-links {
   list-style: none;
   display: flex;
@@ -16,8 +20,9 @@
 }
 
 .nav-link {
-  color: white;
+  color: #282c34;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .nav-link:hover {

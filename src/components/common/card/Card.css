@@ -1,0 +1,37 @@
+/* src/components/common/Card.css */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 16px;
+  max-width: 350px; /* Ancho máximo de la tarjeta */
+  height: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s; /* Efecto de hover */
+  justify-content: center;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Aumenta ligeramente al pasar el mouse */
+}
+
+.card-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.card-author,
+.card-year {
+  font-size: 1rem;
+  color: #555;
+}

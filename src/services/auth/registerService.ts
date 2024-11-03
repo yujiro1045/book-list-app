@@ -1,14 +1,14 @@
 import { API_URL } from "../../constant";
 import {
-  RegisterParams,
-  RegisterResponse,
-} from "../../interfaces/registerInterface";
+  RegisterRequestDto,
+  RegisterResponseDto,
+} from "../../types/dto/register.dto";
 
 export const register = async (
-  data: RegisterParams
-): Promise<RegisterResponse> => {
+  data: RegisterRequestDto
+): Promise<RegisterResponseDto> => {
   try {
-    const response = await fetch(`${API_URL}/Crear`, {
+    const response = await fetch(`${API_URL}usuario/Crear`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export const register = async (
       throw new Error("Error al registrar usuario");
     }
 
-    return (await response.json()) as RegisterResponse;
+    return (await response.json()) as RegisterResponseDto;
   } catch (error) {
     console.error("Error en el servicio de registro", error);
     throw error;

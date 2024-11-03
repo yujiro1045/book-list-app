@@ -27,6 +27,14 @@
   font-size: 16px;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 80%;
+  align-items: center;
+}
+
 .button {
   height: 40px;
   background-color: #3669c9;

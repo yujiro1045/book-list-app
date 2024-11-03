@@ -1,16 +1,15 @@
 import { API_URL } from "../../constant";
-import { LoginParams, LoginResponse } from "../../interfaces/loginInterface";
+import { LoginRequestDto, LoginResponseDto } from "../../types/dto/login.dto";
 
-export const login = async ({
-  email,
-  password,
-}: LoginParams): Promise<LoginResponse> => {
-  const response = await fetch(`${API_URL}/Login`, {
+export const login = async (
+  data: LoginRequestDto
+): Promise<LoginResponseDto> => {
+  const response = await fetch(`${API_URL}usuario/Login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify(data),
   });
 
   if (!response.ok) {

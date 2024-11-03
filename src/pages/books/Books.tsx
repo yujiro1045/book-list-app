@@ -1,10 +1,25 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { books } from "../../data/books";
 import "./Books.css";
+import CustomButton from "../../components/common/button/CustomButton";
+import { Book } from "../../interfaces/booksInterface";
 
-const Books = () => {
+const Books: React.FC<Book> = ({
+  ISBN,
+  author,
+  cover,
+  genre,
+  onRemove,
+  pages,
+  synopsis,
+  title,
+  year,
+}) => {
   const [selectedGenre, setSelectedGenre] = useState("Todos");
   const [filteredBooks, setFilteredBooks] = useState(books.library);
+  const [readingList, setReadingList] = useState(
+    JSON.parse(localStorage.getItem("listBooks")) || []
+  );
 
   const genres = [
     ...new Set(books.library.map((item) => item.book.genre)),
@@ -12,9 +27,6 @@ const Books = () => {
   ];
 
   const totalBooks = filteredBooks.length;
-  const readingListCount = filteredBooks.filter(
-    (item) => item.book.inReadingList
-  ).length;
 
   useEffect(() => {
     const updatedFilteredBooks =
@@ -25,10 +37,24 @@ const Books = () => {
     setFilteredBooks(updatedFilteredBooks);
   }, [selectedGenre, books.library]);
 
+  const toggleFavorite = (book) => {
+    if (readingList.find((fav) => fav.ISBN === book.ISBN)) {
+      const updatedFavorites = readingList.filter(
+        (fav) => fav.ISBN !== book.ISBN
+      );
+      setReadingList(updatedFavorites);
+      localStorage.setItem("listBooks", JSON.stringify(updatedFavorites));
+    } else {
+      const updatedFavorites = [...readingList, book];
+      setReadingList(updatedFavorites);
+      localStorage.setItem("listBooks", JSON.stringify(updatedFavorites));
+    }
+  };
+
   return (
     <div>
       <h1>Books</h1>
-      <label htmlFor="genre-select">Filtrar po Género:</label>
+      <label htmlFor="genre-select">Filtrar por Género:</label>
       <select
         id="genre-select"
         value={selectedGenre}
@@ -43,7 +69,6 @@ const Books = () => {
 
       <div>
         <p>Número de libros disponibles: {totalBooks}</p>
-        <p>Número de libros en la lista de lectura: {readingListCount}</p>
       </div>
 
       <ul>
@@ -58,6 +83,14 @@ const Books = () => {
             <p>Año: {item.book.year}</p>
             <p>ISBN: {item.book.ISBN}</p>
             <p>Otros libros: {item.book.author.otherBooks.join(", ")}</p>
+            <CustomButton
+              size="small"
+              onClick={() => toggleFavorite(item.book)}
+            >
+              {readingList.find((fav) => fav.ISBN === item.book.ISBN)
+                ? "Quitar de Lista de lectura"
+                : "Agregar a Lista de lectura"}
+            </CustomButton>
           </li>
         ))}
       </ul>

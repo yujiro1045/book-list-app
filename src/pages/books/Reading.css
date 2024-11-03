@@ -1,0 +1,11 @@
+.card-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las tarjetas se ajusten a múltiples filas */
+  justify-content: space-between; /* Distribuye el espacio entre las tarjetas */
+  gap: 16px; /* Espacio entre las tarjetas */
+}
+
+/* Para las tarjetas en dispositivos pequeños, puede que quieras limitar el tamaño */
+.card {
+  flex: 0 0 calc(33.333% - 16px); /* Tres tarjetas por fila con un margen de 16px */
+}

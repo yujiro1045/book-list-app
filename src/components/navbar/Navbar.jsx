@@ -4,21 +4,26 @@ import "./Navbar.css";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <h1>My Books App</h1>
+      <h1 className="titleNavbar">My Books App</h1>
       <ul className="nav-links">
         <li>
-          <Link to="/login" className="nav-links">
+          <Link to="/" className="nav-link">
             Login
           </Link>
         </li>
         <li>
-          <Link to="/register" className="nav-links">
+          <Link to="/register" className="nav-link">
             Register
           </Link>
         </li>
         <li>
-          <Link to="/books" className="nav-links">
+          <Link to="/books" className="nav-link">
             Books
+          </Link>
+        </li>
+        <li>
+          <Link to="/list" className="nav-link">
+            Lista de lectura
           </Link>
         </li>
       </ul>
