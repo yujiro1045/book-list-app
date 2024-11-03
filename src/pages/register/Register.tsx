@@ -8,32 +8,23 @@ import { RegisterResponseDto } from "../../types/dto/register.dto";
 import { registerFormInitialValue } from "../../helpers/forms";
 import { RegisterForm } from "../../types/forms/register-form.type";
 import toast from "react-hot-toast";
+import useAuthStore from "../../store/useAuthErrorsStore";
 
 const Register: React.FC = () => {
   const [registerForm, setRegisterForm] = useState<RegisterForm>(
     registerFormInitialValue
   );
-  const [errors, setErrors] = useState({
-    name: false,
-    email: false,
-    password: false,
-    identification: false,
-  });
+  const { setRegisterError } = useAuthStore();
+  const navigate = useNavigate();
 
   const onChangeForm = (name: keyof RegisterForm, value: string) => {
     setRegisterForm((prev) => ({
       ...prev,
       [name]: value,
     }));
-    setErrors((prev) => ({
-      ...prev,
-      [name]: value === "",
-    }));
   };
 
   const { email, identification, name, password } = registerForm;
-
-  const navigate = useNavigate();
 
   const handleLoginRedirect = () => {
     navigate(Paths.LOGIN);
@@ -41,6 +32,11 @@ const Register: React.FC = () => {
 
   const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!email || !identification || !name || !password) {
+      setRegisterError("Por favor, completa todos los campos.");
+      return;
+    }
 
     const documentNumber = identification !== "" ? Number(identification) : 0;
 
@@ -56,6 +52,7 @@ const Register: React.FC = () => {
       toast.success("Registro exitoso!");
       navigate(Paths.LOGIN);
     } catch (error) {
+      setRegisterError("Error al registrar. Inténtalo de nuevo.");
       toast.error("Error al registrar. Inténtalo de nuevo.");
     }
   };
@@ -72,7 +69,6 @@ const Register: React.FC = () => {
         onChange={(e) => onChangeForm("name", e.target.value)}
         className="input"
       />
-      {errors.name && <p>Este campo es obligatorio</p>}
       <input
         type="email"
         placeholder="Correo"
@@ -80,9 +76,6 @@ const Register: React.FC = () => {
         onChange={(e) => onChangeForm("email", e.target.value)}
         className="input"
       />
-      {errors.email && (
-        <p className="error-message">Este campo es obligatorio</p>
-      )}
       <input
         type="password"
         placeholder="Contraseña"
@@ -90,9 +83,6 @@ const Register: React.FC = () => {
         onChange={(e) => onChangeForm("password", e.target.value)}
         className="input"
       />
-      {errors.password && (
-        <p className="error-message">Este campo es obligatorio</p>
-      )}
       <input
         type="number"
         placeholder="Documento"
@@ -100,16 +90,15 @@ const Register: React.FC = () => {
         onChange={(e) => onChangeForm("identification", e.target.value)}
         className="input"
       />
-      {errors.identification && (
-        <p className="error-message">Este campo es obligatorio</p>
-      )}
+      <p className="error-message">
+        {useAuthStore((state) => state.registerError)}
+      </p>
 
       <div className="button-container">
         <CustomButton
-          onClick={handleRegister}
           size="large"
           disabled={!isFormComplete}
-          type="submit"
+          onClick={handleRegister}
         >
           Registrate
         </CustomButton>

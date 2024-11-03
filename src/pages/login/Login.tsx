@@ -8,9 +8,13 @@ import { LoginResponseDto } from "../../types/dto/login.dto";
 import { LoginForm } from "../../types/forms/login-form.type";
 import { login } from "../../services/auth/loginService";
 import toast from "react-hot-toast";
+import useAuthStore from "../../store/useAuthErrorsStore";
+
+const ONLY_EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Login: React.FC = () => {
   const [loginForm, setLoginForm] = useState<LoginForm>(loginFormInitialValue);
+  const { setLoginError } = useAuthStore(); // Usa el store para manejar errores
   const navigate = useNavigate();
 
   const onChangeForm = (name: keyof LoginForm, value: string) => {
@@ -29,11 +33,16 @@ const Login: React.FC = () => {
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!email || password) {
+      setLoginError("Por favor, completa todos los campos.");
+      return;
+    }
+
     const credentials = { correo: email, password };
 
     try {
       const response: LoginResponseDto = await login(
-        credentials as LoginResponseDto
+        credentials as unknown as LoginResponseDto
       );
 
       localStorage.setItem("token", response.token);
@@ -41,15 +50,15 @@ const Login: React.FC = () => {
       localStorage.setItem("documento", response.documento.toString());
 
       toast.success("Ingreso exitoso");
-
       navigate(Paths.BOOKS);
     } catch (error) {
+      setLoginError("Error al intentar ingresar, intentalo de nuevo");
       toast.error("Error al intentar ingresar, intentalo de nuevo");
     }
   };
 
   return (
-    <form className="containerLogin">
+    <form className="containerLogin" onSubmit={handleLogin}>
       <h2 className="title">Iniciar Sesión</h2>
       <input
         type="email"
@@ -58,6 +67,7 @@ const Login: React.FC = () => {
         onChange={(e) => onChangeForm("email", e.target.value)}
         className="input"
       />
+
       <input
         type="password"
         placeholder="Contraseña"
@@ -65,14 +75,24 @@ const Login: React.FC = () => {
         onChange={(e) => onChangeForm("password", e.target.value)}
         className="input"
       />
+      <p className="error-message">
+        {useAuthStore((state) => state.loginError)}
+      </p>
+
       <div className="button-container">
         <CustomButton size="large" onClick={handleLogin}>
-          Iniciar Sesion
+          Iniciar Sesión
         </CustomButton>
 
-        <CustomButton onClick={handleRegisterRedirect} size="large">
-          Registrate
-        </CustomButton>
+        <p>
+          Eres nuevo?{" "}
+          <span
+            onClick={handleRegisterRedirect}
+            style={{ cursor: "pointer", color: "#3669c9" }}
+          >
+            Registrate
+          </span>
+        </p>
       </div>
     </form>
   );
