@@ -1,63 +1,20 @@
-import React, { useState, FormEvent } from "react";
+import React from "react";
 import "./Register.css";
-import { register } from "../../services/auth/registerService";
-import { useNavigate } from "react-router-dom";
-import { Paths } from "../../constant/path";
 import CustomButton from "../../components/common/button/CustomButton";
-import { RegisterResponseDto } from "../../types/dto/register.dto";
-import { registerFormInitialValue } from "../../helpers/forms";
-import { RegisterForm } from "../../types/forms/register-form.type";
-import toast from "react-hot-toast";
-import useAuthStore from "../../store/useAuthErrorsStore";
+import { useRegister } from "./useRegister";
 
-const Register: React.FC = () => {
-  const [registerForm, setRegisterForm] = useState<RegisterForm>(
-    registerFormInitialValue
-  );
-  const { setRegisterError } = useAuthStore();
-  const navigate = useNavigate();
+const Register = () => {
+  const {
+    email,
+    identification,
+    isLoading,
+    name,
+    password,
 
-  const onChangeForm = (name: keyof RegisterForm, value: string) => {
-    setRegisterForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const { email, identification, name, password } = registerForm;
-
-  const handleLoginRedirect = () => {
-    navigate(Paths.LOGIN);
-  };
-
-  const handleRegister = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!email || !identification || !name || !password) {
-      setRegisterError("Por favor, completa todos los campos.");
-      return;
-    }
-
-    const documentNumber = identification !== "" ? Number(identification) : 0;
-
-    const data: RegisterResponseDto = {
-      correo: email,
-      documento: documentNumber,
-      nombre: name,
-      password: password,
-    };
-
-    try {
-      await register(data);
-      toast.success("Registro exitoso!");
-      navigate(Paths.LOGIN);
-    } catch (error) {
-      setRegisterError("Error al registrar. Inténtalo de nuevo.");
-      toast.error("Error al registrar. Inténtalo de nuevo.");
-    }
-  };
-
-  const isFormComplete = name && email && password && identification;
+    handleLoginRedirect,
+    handleRegister,
+    onChangeForm,
+  } = useRegister();
 
   return (
     <form className="containerRegister" onSubmit={handleRegister}>
@@ -65,41 +22,43 @@ const Register: React.FC = () => {
       <input
         type="text"
         placeholder="Nombre"
-        value={name}
+        value={name.value}
         onChange={(e) => onChangeForm("name", e.target.value)}
-        className="input"
+        className={`input ${name.error ? "input-error" : "input-valid"}`}
       />
+      {name.error && <p className="error-message">{name.error}</p>}
+
       <input
         type="email"
         placeholder="Correo"
-        value={email}
+        value={email.value}
         onChange={(e) => onChangeForm("email", e.target.value)}
-        className="input"
+        className={`input ${email.error ? "input-error" : ""}`}
       />
+      {email.error && <p className="error-message">{email.error}</p>}
+
       <input
         type="password"
         placeholder="Contraseña"
-        value={password}
+        value={password.value}
         onChange={(e) => onChangeForm("password", e.target.value)}
-        className="input"
+        className={`input ${password.error ? "input-error" : ""}`}
       />
+      {password.error && <p className="error-message">{password.error}</p>}
+
       <input
         type="number"
         placeholder="Documento"
-        value={identification}
+        value={identification.value}
         onChange={(e) => onChangeForm("identification", e.target.value)}
-        className="input"
+        className={`input ${identification.error ? "input-error" : ""}`}
       />
-      <p className="error-message">
-        {useAuthStore((state) => state.registerError)}
-      </p>
+      {identification.error && (
+        <p className="error-message">{identification.error}</p>
+      )}
 
       <div className="button-container">
-        <CustomButton
-          size="large"
-          disabled={!isFormComplete}
-          onClick={handleRegister}
-        >
+        <CustomButton loading={isLoading} size="large" type="submit">
           Registrate
         </CustomButton>
 

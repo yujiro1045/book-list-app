@@ -8,13 +8,11 @@ import { LoginResponseDto } from "../../types/dto/login.dto";
 import { LoginForm } from "../../types/forms/login-form.type";
 import { login } from "../../services/auth/loginService";
 import toast from "react-hot-toast";
-import useAuthStore from "../../store/useAuthErrorsStore";
-
-const ONLY_EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+import useAuthStore from "../../store/useAuthStore";
 
 const Login: React.FC = () => {
   const [loginForm, setLoginForm] = useState<LoginForm>(loginFormInitialValue);
-  const { setLoginError } = useAuthStore(); // Usa el store para manejar errores
+  const { setError, error } = useAuthStore();
   const navigate = useNavigate();
 
   const onChangeForm = (name: keyof LoginForm, value: string) => {
@@ -22,6 +20,10 @@ const Login: React.FC = () => {
       ...prev,
       [name]: value,
     }));
+
+    if (error) {
+      setError(null);
+    }
   };
 
   const { email, password } = loginForm;
@@ -33,8 +35,8 @@ const Login: React.FC = () => {
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!email || password) {
-      setLoginError("Por favor, completa todos los campos.");
+    if (!email || !password) {
+      setError("Por favor, completa todos los campos.");
       return;
     }
 
@@ -52,7 +54,7 @@ const Login: React.FC = () => {
       toast.success("Ingreso exitoso");
       navigate(Paths.BOOKS);
     } catch (error) {
-      setLoginError("Error al intentar ingresar, intentalo de nuevo");
+      setError("Error al intentar ingresar, intentalo de nuevo");
       toast.error("Error al intentar ingresar, intentalo de nuevo");
     }
   };
@@ -75,9 +77,7 @@ const Login: React.FC = () => {
         onChange={(e) => onChangeForm("password", e.target.value)}
         className="input"
       />
-      <p className="error-message">
-        {useAuthStore((state) => state.loginError)}
-      </p>
+      <p className="error-message">{error}</p>
 
       <div className="button-container">
         <CustomButton size="large" onClick={handleLogin}>

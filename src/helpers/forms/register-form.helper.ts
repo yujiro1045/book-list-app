@@ -1,8 +1,13 @@
 import { RegisterForm } from "../../types/forms/register-form.type";
 
+const defaultFieldValue = {
+  value: "",
+  error: "",
+};
+
 export const registerFormInitialValue: RegisterForm = {
-  identification: "",
-  email: "",
-  name: "",
-  password: "",
+  identification: defaultFieldValue,
+  email: defaultFieldValue,
+  name: defaultFieldValue,
+  password: defaultFieldValue,
 };

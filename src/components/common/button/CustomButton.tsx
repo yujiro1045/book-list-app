@@ -1,10 +1,20 @@
-import React from "react";
+import React, { ButtonHTMLAttributes, FC } from "react";
 import "./CustomButton.css";
 
-const CustomButton = ({ size = "medium", children, onClick }) => {
+type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+  size?: "small" | "medium" | "large";
+  loading?: boolean;
+};
+
+const CustomButton: FC<Props> = ({
+  size = "medium",
+  children,
+  loading = false,
+  ...props
+}) => {
   return (
-    <button className={`button ${size}`} onClick={onClick}>
-      {children}
+    <button {...props} disabled={loading} className={`button ${size}`}>
+      {loading ? "Cargando..." : children}
     </button>
   );
 };

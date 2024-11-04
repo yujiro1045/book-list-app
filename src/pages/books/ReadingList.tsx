@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Book } from "../../interfaces/booksInterface";
+import { Book } from "../../types/booksInterface";
 import Card from "../../components/common/card/Card";
 import useBookStore from "../../store/useBookStore";
 
