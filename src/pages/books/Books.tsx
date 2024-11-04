@@ -37,32 +37,35 @@ const Books: React.FC<Book> = () => {
   };
 
   return (
-    <div>
-      <h1>Books</h1>
-      <label htmlFor="genre-select">Filtrar por Género:</label>
-      <select
-        id="genre-select"
-        value={selectedGenre}
-        onChange={(e) => setSelectedGenre(e.target.value)}
-      >
-        {genres.map((genre, index) => (
-          <option key={index} value={genre}>
-            {genre}
-          </option>
-        ))}
-      </select>
+    <div className="books-container">
+      <h1 className="books-title">Books</h1>
+
+      <div className="filter-genre">
+        <label htmlFor="genre-select">Filtrar por Género:</label>
+        <select
+          id="genre-select"
+          value={selectedGenre}
+          onChange={(e) => setSelectedGenre(e.target.value)}
+        >
+          {genres.map((genre, index) => (
+            <option key={index} value={genre}>
+              {genre}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div>
         <p>Número de libros disponibles: {totalBooks}</p>
       </div>
 
-      <ul>
+      <ul className="books-grid">
         {filteredBooks.map((item, index) => (
-          <li key={index}>
+          <li key={index} className="book-item">
             <h2>{item.book.title}</h2>
+            <img src={item.book.cover} alt={`Cover of ${item.book.title}`} />
             <p>Número de páginas: {item.book.pages}</p>
             <p>Género: {item.book.genre}</p>
-            <img src={item.book.cover} alt={`Cover of ${item.book.title}`} />
             <p>Autor: {item.book.author.name}</p>
             <p>Sinopsis: {item.book.synopsis}</p>
             <p>Año: {item.book.year}</p>

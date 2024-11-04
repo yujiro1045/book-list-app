@@ -6,25 +6,56 @@
   background-color: #282c34;
   color: white;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .titleNavbar {
   color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
   gap: 1rem;
-  justify-content: end;
+  margin-right: 25px;
+  padding: 0;
+}
+
+.nav-links li {
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: transform 0.2s, background-color 0.3s;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-links li:hover {
+  background-color: #2a4f8f;
+  transform: scale(1.05);
 }
 
 .nav-link {
-  color: #282c34;
+  color: #444;
   text-decoration: none;
   font-weight: bold;
 }
 
-.nav-link:hover {
-  color: #aaa;
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-links li {
+    width: 100%;
+    text-align: center;
+  }
 }

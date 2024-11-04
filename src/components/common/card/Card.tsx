@@ -1,7 +1,7 @@
-import { Book } from "../../../interfaces/booksInterface";
 import React from "react";
 import CustomButton from "../button/CustomButton";
 import "./Card.css";
+import { Book } from "../../../types/booksInterface";
 
 const Card: React.FC<Book> = ({ author, cover, title, year, onRemove }) => {
   return (
@@ -9,7 +9,7 @@ const Card: React.FC<Book> = ({ author, cover, title, year, onRemove }) => {
       <img src={cover} alt={`Cover of ${title}`} className="card-image" />
       <div className="card-container">
         <h2 className="card-title">{title}</h2>
-        <p className="card-autor">Autor: {author?.name}</p>
+        <p className="card-author">Autor: {author?.name}</p>
         <p className="card-year">Año: {year}</p>
         <CustomButton onClick={onRemove} size="small">
           Eliminar libro

@@ -54,3 +54,7 @@
   font-size: 0.9rem;
   margin-top: 0.3rem;
 }
+
+.input-error {
+  border: 1px solid red;
+}

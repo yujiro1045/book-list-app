@@ -1,4 +1,6 @@
+import { FormValue } from "./form-value.type";
+
 export interface LoginForm {
-  email: string;
-  password: string;
+  email: FormValue;
+  password: FormValue;
 }

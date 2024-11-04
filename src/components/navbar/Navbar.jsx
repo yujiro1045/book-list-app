@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({ isAuthenticated }) => {
   return (
     <nav className="navbar">
       <h1 className="titleNavbar">My Books App</h1>
@@ -16,16 +16,20 @@ const Navbar = () => {
             Register
           </Link>
         </li>
-        <li>
-          <Link to="/books" className="nav-link">
-            Books
-          </Link>
-        </li>
-        <li>
-          <Link to="/list" className="nav-link">
-            Lista de lectura
-          </Link>
-        </li>
+        {isAuthenticated && (
+          <>
+            <li>
+              <Link to="/books" className="nav-link">
+                Books
+              </Link>
+            </li>
+            <li>
+              <Link to="/list" className="nav-link">
+                Lista de lectura
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );
