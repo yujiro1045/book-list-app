@@ -7,11 +7,13 @@ type User = Omit<LoginResponseDto, "token">;
 interface AuthState {
   token: string | null;
   user: User | null;
+  isAuthenticated: boolean;
 }
 
 interface AuthActions {
   onLogin: (user: LoginResponseDto) => void;
   onLogout: () => void;
+  onSetAuthenticated: (isAuthenticated: boolean) => void;
 }
 
 type AuthStatement = AuthActions & AuthState;
@@ -19,6 +21,7 @@ type AuthStatement = AuthActions & AuthState;
 const useAuthStore = create(
   persist<AuthStatement>(
     (set) => ({
+      isAuthenticated: false,
       error: null,
       token: null,
       user: null,
@@ -30,6 +33,9 @@ const useAuthStore = create(
       },
       onLogout() {
         set({ user: null, token: null });
+      },
+      onSetAuthenticated(isAuthenticated) {
+        set({ isAuthenticated });
       },
     }),
     { name: "auth-state", storage: createJSONStorage(() => localStorage) }

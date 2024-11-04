@@ -3,7 +3,7 @@ import "./Login.css";
 import CustomButton from "../../components/common/button/CustomButton";
 import { useLogin } from "./useLogin";
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const {
     email,
     isLoading,

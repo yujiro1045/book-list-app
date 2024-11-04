@@ -5,25 +5,18 @@ import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Books from "../pages/books/Books";
 import { Paths } from "../constant/path";
-import ReadingList from "../pages/books/ReadingList";
+import ReadingList from "../pages/reading-list/ReadingList";
 import Navbar from "../components/navbar/Navbar";
+import useAuthStore from "../store/useAuthStore";
 
 function AppRoutes() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-  };
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <Layout>
       <Navbar isAuthenticated={isAuthenticated} />
       <Routes>
-        <Route path={Paths.LOGIN} element={<Login onLogin={handleLogin} />} />
+        <Route path={Paths.LOGIN} element={<Login />} />
         <Route path={Paths.REGISTER} element={<Register />} />
         <Route
           path={Paths.BOOKS}

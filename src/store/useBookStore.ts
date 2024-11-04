@@ -1,14 +1,19 @@
 import { create } from "zustand";
 import { Book } from "../types/booksInterface";
 
-interface BookStore {
+interface BookState {
   readingList: Book[];
+}
+
+interface BookActions {
   addToReadingList: (book: Book) => void;
   removeFromReadingList: (ISBN: string) => void;
   setReadingList: (books: Book[]) => void;
 }
 
-const useBookStore = create<BookStore>((set) => ({
+type BookStatement = BookActions & BookState;
+
+const useBookStore = create<BookStatement>((set) => ({
   readingList: JSON.parse(localStorage.getItem("listBooks") || "[]") || [],
   addToReadingList: (book: Book) => {
     set((state) => {
