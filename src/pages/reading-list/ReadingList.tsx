@@ -1,7 +1,7 @@
 import "./Reading.css";
 import { Book } from "../../types/booksInterface";
 import Card from "../../components/common/card/Card";
-import React, { useEffect } from "react";
+import React from "react";
 import useBookStore from "../../store/useBookStore";
 
 const ReadingList: React.FC = () => {
@@ -10,13 +10,6 @@ const ReadingList: React.FC = () => {
   const handleRemoveBook = (ISBN: string) => {
     removeFromReadingList(ISBN);
   };
-
-  useEffect(() => {
-    const storedList = JSON.parse(
-      localStorage.getItem("listBooks") || []
-    ) as Book[];
-    setReadingList(storedList);
-  }, [setReadingList]);
 
   return (
     <>

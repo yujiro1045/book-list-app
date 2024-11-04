@@ -21,7 +21,7 @@ type AuthStatement = AuthActions & AuthState;
 const useAuthStore = create(
   persist<AuthStatement>(
     (set) => ({
-      isAuthenticated: false,
+      isAuthenticated: true,
       error: null,
       token: null,
       user: null,

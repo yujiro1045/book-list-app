@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { Book } from "../types/booksInterface";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface BookState {
   readingList: Book[];
@@ -13,27 +14,30 @@ interface BookActions {
 
 type BookStatement = BookActions & BookState;
 
-const useBookStore = create<BookStatement>((set) => ({
-  readingList: JSON.parse(localStorage.getItem("listBooks") || "[]") || [],
-  addToReadingList: (book: Book) => {
-    set((state) => {
-      const updateList = [...state.readingList, book];
-      localStorage.setItem("listBooks", JSON.stringify(updateList));
-      return { readingList: updateList };
-    });
-  },
-  removeFromReadingList: (ISBN: string) => {
-    set((state) => {
-      const updatedList = state.readingList.filter(
-        (book) => book.ISBN !== ISBN
-      );
-      localStorage.setItem("listBooks", JSON.stringify(updatedList));
-      return { readingList: updatedList };
-    });
-  },
-  setReadingList: (books: Book[]) => {
-    set({ readingList: books });
-  },
-}));
+const useBookStore = create(
+  persist<BookStatement>(
+    (set) => ({
+      readingList: [],
+      addToReadingList: (book: Book) => {
+        set((state) => {
+          const updatedList = [...state.readingList, book];
+          return { readingList: updatedList };
+        });
+      },
+      removeFromReadingList: (ISBN: string) => {
+        set((state) => {
+          const updatedList = state.readingList.filter(
+            (book) => book.ISBN !== ISBN
+          );
+          return { readingList: updatedList };
+        });
+      },
+      setReadingList: (books: Book[]) => {
+        set({ readingList: books });
+      },
+    }),
+    { name: "book-state", storage: createJSONStorage(() => localStorage) }
+  )
+);
 
 export default useBookStore;
