@@ -2,40 +2,43 @@ import React from "react";
 import "./Login.css";
 import CustomButton from "../../components/common/button/CustomButton";
 import { useLogin } from "./useLogin";
+import { useNavigate } from "react-router-dom";
+import { Paths } from "../../constant/path";
 
 const Login = () => {
+  const { isLoading, methods, handleLogin } = useLogin();
+
+  const navigate = useNavigate();
+
   const {
-    email,
-    isLoading,
-    password,
+    handleSubmit,
+    formState: { errors },
+    register,
+  } = methods;
 
-    handleLogin,
-    handleRegisterRedirect,
-    onChangeForm,
-  } = useLogin();
-
-  const handleSubmit = () => {};
+  const emailErrors = errors.correo;
+  const passwordErrors = errors.password;
 
   return (
-    <form className="containerLogin" onSubmit={handleLogin}>
+    <form className="containerLogin" onSubmit={handleSubmit(handleLogin)}>
       <h2 className="title">Iniciar Sesión</h2>
       <input
         type="email"
         placeholder="Correo"
-        value={email.value}
-        onChange={(e) => onChangeForm("email", e.target.value)}
-        className={`input ${email.error ? "input-error" : ""}`}
+        className={`input ${emailErrors ? "input-error" : ""}`}
+        {...register("correo", { required: "Este campo es requerido" })}
       />
-      {email.error && <p className="error-message">{email.error}</p>}
+      {emailErrors && <p className="error-message">{emailErrors.message}</p>}
 
       <input
         type="password"
         placeholder="Contraseña"
-        value={password.value}
-        onChange={(e) => onChangeForm("password", e.target.value)}
-        className={`input ${password.error ? "input-error" : ""}`}
+        className={`input ${passwordErrors ? "input-error" : ""}`}
+        {...register("password", { required: "Este campo es requerido" })}
       />
-      {password.error && <p className="error-message">{password.error}</p>}
+      {passwordErrors && (
+        <p className="error-message">{passwordErrors.message}</p>
+      )}
 
       <div className="button-container">
         <CustomButton loading={isLoading} size="large" type="submit">
@@ -45,7 +48,7 @@ const Login = () => {
         <p>
           Eres nuevo?{" "}
           <span
-            onClick={handleRegisterRedirect}
+            onClick={() => navigate(Paths.REGISTER)}
             style={{ cursor: "pointer", color: "#3669c9" }}
           >
             Registrate

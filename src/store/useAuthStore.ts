@@ -2,18 +2,15 @@ import { create } from "zustand";
 import { LoginResponseDto } from "../types/dto/login.dto";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-type User = Omit<LoginResponseDto, "token">;
-
 interface AuthState {
-  token: string | null;
-  user: User | null;
-  isAuthenticated: boolean;
+  user: LoginResponseDto | null;
+  isAuthenticated: boolean | null;
 }
 
 interface AuthActions {
-  onLogin: (user: LoginResponseDto) => void;
   onLogout: () => void;
   onSetAuthenticated: (isAuthenticated: boolean) => void;
+  onSetUser: (user: LoginResponseDto) => void;
 }
 
 type AuthStatement = AuthActions & AuthState;
@@ -21,21 +18,18 @@ type AuthStatement = AuthActions & AuthState;
 const useAuthStore = create(
   persist<AuthStatement>(
     (set) => ({
-      isAuthenticated: true,
+      isAuthenticated: null,
       error: null,
-      token: null,
       user: null,
-      onLogin(user) {
-        set(() => {
-          const { token, ...rest } = user;
-          return { token, user: { ...rest } };
-        });
-      },
+
       onLogout() {
-        set({ user: null, token: null });
+        set({ user: null, isAuthenticated: false });
       },
       onSetAuthenticated(isAuthenticated) {
         set({ isAuthenticated });
+      },
+      onSetUser(user) {
+        set({ user });
       },
     }),
     { name: "auth-state", storage: createJSONStorage(() => localStorage) }
