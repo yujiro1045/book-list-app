@@ -4,6 +4,9 @@ import CustomButton from "../../components/common/button/CustomButton";
 import { useLogin } from "./useLogin";
 import { useNavigate } from "react-router-dom";
 import { Paths } from "../../constant/path";
+import { ONLY_EMAIL_REGEX } from "../../helpers/constants/regex/email-regex.helper";
+
+const REQUIRED_MESSAGE = "Este campo es requerido";
 
 const Login = () => {
   const { isLoading, methods, handleLogin } = useLogin();
@@ -26,7 +29,13 @@ const Login = () => {
         type="email"
         placeholder="Correo"
         className={`input ${emailErrors ? "input-error" : ""}`}
-        {...register("correo", { required: "Este campo es requerido" })}
+        {...register("correo", {
+          required: REQUIRED_MESSAGE,
+          pattern: {
+            value: ONLY_EMAIL_REGEX,
+            message: "Formato de correo inválido",
+          },
+        })}
       />
       {emailErrors && <p className="error-message">{emailErrors.message}</p>}
 
@@ -34,7 +43,13 @@ const Login = () => {
         type="password"
         placeholder="Contraseña"
         className={`input ${passwordErrors ? "input-error" : ""}`}
-        {...register("password", { required: "Este campo es requerido" })}
+        {...register("password", {
+          required: REQUIRED_MESSAGE,
+          minLength: {
+            value: 8,
+            message: "La contraseña debe tener minimo 8 caracteres",
+          },
+        })}
       />
       {passwordErrors && (
         <p className="error-message">{passwordErrors.message}</p>

@@ -2,59 +2,78 @@ import React from "react";
 import "./Register.css";
 import CustomButton from "../../components/common/button/CustomButton";
 import { useRegister } from "./useRegister";
+import { useNavigate } from "react-router-dom";
+import { Paths } from "../../constant/path";
+import { ONLY_EMAIL_REGEX } from "../../helpers/constants/regex/email-regex.helper";
+
+const REQUIRED_MESSAGE = "Este campo es requerido";
 
 const Register = () => {
-  const {
-    email,
-    identification,
-    isLoading,
-    name,
-    password,
+  const { isLoading, handleRegister, methods } = useRegister();
 
-    handleLoginRedirect,
-    handleRegister,
-    onChangeForm,
-  } = useRegister();
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = methods;
+
+  const navigate = useNavigate();
 
   return (
-    <form className="containerRegister" onSubmit={handleRegister}>
+    <form className="containerRegister" onSubmit={handleSubmit(handleRegister)}>
       <h2 className="title">Crear Cuenta</h2>
       <input
         type="text"
         placeholder="Nombre"
-        value={name.value}
-        onChange={(e) => onChangeForm("name", e.target.value)}
-        className={`input ${name.error ? "input-error" : "input-valid"}`}
+        className={`input ${errors.nombre ? "input-error" : "input-valid"}`}
+        {...register("nombre", {
+          required: REQUIRED_MESSAGE,
+        })}
       />
-      {name.error && <p className="error-message">{name.error}</p>}
+      {errors.nombre && (
+        <p className="error-message">{errors.nombre.message}</p>
+      )}
 
       <input
         type="email"
         placeholder="Correo"
-        value={email.value}
-        onChange={(e) => onChangeForm("email", e.target.value)}
-        className={`input ${email.error ? "input-error" : ""}`}
+        className={`input ${errors.correo ? "input-error" : ""}`}
+        {...register("correo", {
+          required: REQUIRED_MESSAGE,
+          pattern: {
+            value: ONLY_EMAIL_REGEX,
+            message: "Formato de correo inválido",
+          },
+        })}
       />
-      {email.error && <p className="error-message">{email.error}</p>}
+      {errors.correo && (
+        <p className="error-message">{errors.correo.message}</p>
+      )}
 
       <input
         type="password"
         placeholder="Contraseña"
-        value={password.value}
-        onChange={(e) => onChangeForm("password", e.target.value)}
-        className={`input ${password.error ? "input-error" : ""}`}
+        className={`input ${errors.password ? "input-error" : ""}`}
+        {...register("password", {
+          required: REQUIRED_MESSAGE,
+          minLength: {
+            value: 8,
+            message: "La contraseña debe tener minimo 8 caracteres",
+          },
+        })}
       />
-      {password.error && <p className="error-message">{password.error}</p>}
+      {errors.password && (
+        <p className="error-message">{errors.password.message}</p>
+      )}
 
       <input
         type="number"
         placeholder="Documento"
-        value={identification.value}
-        onChange={(e) => onChangeForm("identification", e.target.value)}
-        className={`input ${identification.error ? "input-error" : ""}`}
+        className={`input ${errors.documento ? "input-error" : ""}`}
+        {...register("documento", { required: REQUIRED_MESSAGE })}
       />
-      {identification.error && (
-        <p className="error-message">{identification.error}</p>
+      {errors.documento && (
+        <p className="error-message">{errors.documento.message}</p>
       )}
 
       <div className="button-container">
@@ -65,7 +84,7 @@ const Register = () => {
         <p>
           Ya tienes cuenta?{" "}
           <span
-            onClick={handleLoginRedirect}
+            onClick={() => navigate(Paths.LOGIN)}
             style={{ cursor: "pointer", color: "#3669c9" }}
           >
             Inicia sesión

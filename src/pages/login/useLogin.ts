@@ -1,13 +1,9 @@
-import toast from "react-hot-toast";
-import { Paths } from "../../constant/path";
-import { LoginResponseDto } from "../../types/dto/login.dto";
-import { login } from "../../services/auth/loginService";
-import { ONLY_EMAIL_REGEX } from "../../helpers/constants/regex/email-regex.helper";
-import { LoginForm } from "../../types/forms/login-form.type";
-import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { loginFormInitialValue } from "../../helpers/forms/login-form.helpers";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { Paths } from "../../constant/path";
+import { login } from "../../services/auth/loginService";
 import useAuthStore from "../../store/useAuthStore";
 
 interface LoginFormValues {
