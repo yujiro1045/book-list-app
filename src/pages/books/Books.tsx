@@ -60,29 +60,35 @@ const Books: React.FC<Book> = () => {
       </div>
 
       <div>
-        <p>Número de libros disponibles: {totalBooks}</p>
+        <p className="books-available">
+          Número de libros disponibles: {totalBooks}
+        </p>
       </div>
 
       <ul className="books-grid">
         {filteredBooks.map((item, index) => (
-          <li key={index} className="book-item">
-            <h2>{item.book.title}</h2>
-            <img src={item.book.cover} alt={`Cover of ${item.book.title}`} />
-            <p>Número de páginas: {item.book.pages}</p>
-            <p>Género: {item.book.genre}</p>
-            <p>Autor: {item.book.author.name}</p>
-            <p>Sinopsis: {item.book.synopsis}</p>
-            <p>Año: {item.book.year}</p>
-            <p>Otros libros: {item.book.author.otherBooks.join(", ")}</p>
-            <CustomButton
-              size="small"
-              onClick={() => toggleFavorite(item.book)}
-            >
-              {readingList.find((fav) => fav.ISBN === item.book.ISBN)
-                ? "Quitar de Lista de lectura"
-                : "Agregar a Lista de lectura"}
-            </CustomButton>
-          </li>
+          <div className="book-item">
+            <li key={index}>
+              <h2>{item.book.title}</h2>
+              <img src={item.book.cover} alt={`Cover of ${item.book.title}`} />
+              <p>Número de páginas: {item.book.pages}</p>
+              <p>Género: {item.book.genre}</p>
+              <p>Autor: {item.book.author.name}</p>
+              <p>Sinopsis: {item.book.synopsis}</p>
+              <p>Año: {item.book.year}</p>
+              <p>Otros libros: {item.book.author.otherBooks.join(", ")}</p>
+            </li>
+            <div className="button-add">
+              <CustomButton
+                size="small"
+                onClick={() => toggleFavorite(item.book)}
+              >
+                {readingList.find((fav) => fav.ISBN === item.book.ISBN)
+                  ? "Quitar de Lista de lectura"
+                  : "Agregar a Lista de lectura"}
+              </CustomButton>
+            </div>
+          </div>
         ))}
       </ul>
     </div>

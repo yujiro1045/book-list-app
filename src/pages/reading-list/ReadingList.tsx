@@ -17,14 +17,20 @@ const ReadingList: React.FC = () => {
         <div className="cards">
           <ul className="cards-grid">
             {readingList.length > 0 ? (
-              readingList.map((book, index) => (
+              readingList.map((book) => (
                 <Card
-                  key={index}
-                  title={book.title}
-                  author={{ name: book.author?.name }}
-                  year={book.year}
-                  cover={book.cover}
-                  onRemove={() => handleRemoveBook(book.ISBN!)}
+                  key={book.ISBN}
+                  imageUrl={book.cover || ""}
+                  altText={`Cover of ${book.title}`}
+                  title={book.title || ""}
+                  content={
+                    <>
+                      <p>Autor: {book.author?.name}</p>
+                      <p>Año: {book.year}</p>
+                    </>
+                  }
+                  onButtonClick={() => handleRemoveBook(book.ISBN!)}
+                  buttonText="Eliminar libro"
                 />
               ))
             ) : (

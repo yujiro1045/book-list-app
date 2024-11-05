@@ -33,6 +33,7 @@
   gap: 20px;
   list-style-type: none;
   padding: 0;
+  padding-bottom: 50px;
 }
 
 .book-item {
@@ -41,8 +42,10 @@
   overflow: hidden;
   text-align: center;
   padding: 10px;
+  padding-bottom: 60px;
   transition: transform 0.2s;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
 .book-item:hover {
@@ -54,6 +57,11 @@
   height: 200px;
   border-radius: 4px;
   margin-bottom: 10px;
+}
+
+.books-available {
+  font-size: large;
+  font-weight: bold;
 }
 
 .book-item h2 {
@@ -68,18 +76,12 @@
   margin-bottom: 10px;
 }
 
-button {
-  background-color: #3669c9;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-button:hover {
-  background-color: #2a5ba6;
+.button-add {
+  position: absolute; /* Cambia a posición absoluta */
+  bottom: 10px; /* Espacio desde el borde inferior de la tarjeta */
+  left: 50%; /* Centra el botón horizontalmente */
+  transform: translateX(-50%); /* Ajusta el centrado */
+  margin-top: 15;
 }
 
 @media (min-width: 1024px) {
