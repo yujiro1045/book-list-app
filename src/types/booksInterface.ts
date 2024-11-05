@@ -9,6 +9,6 @@ export interface Book {
   synopsis?: string;
   ISBN?: string;
   genre?: string;
-  pages?: string;
+  pages?: number;
   onRemove?: () => void;
 }

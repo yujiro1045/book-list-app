@@ -9,11 +9,13 @@ const Card: React.FC<Book> = ({ author, cover, title, year, onRemove }) => {
       <img src={cover} alt={`Cover of ${title}`} className="card-image" />
       <div className="card-container">
         <h2 className="card-title">{title}</h2>
-        <p className="card-author">Autor: {author?.name}</p>
-        <p className="card-year">Año: {year}</p>
-        <CustomButton onClick={onRemove} size="small">
-          Eliminar libro
-        </CustomButton>
+        <p className="card-text ">Autor: {author?.name}</p>
+        <p className="card-text ">Año: {year}</p>
+        <div className="button-container">
+          <CustomButton onClick={onRemove} size="small">
+            Eliminar libro
+          </CustomButton>
+        </div>
       </div>
     </div>
   );

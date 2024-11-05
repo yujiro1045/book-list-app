@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 import Login from "../pages/login/Login";

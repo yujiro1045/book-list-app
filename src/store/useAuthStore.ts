@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 interface AuthState {
   user: LoginResponseDto | null;
-  isAuthenticated: boolean | null;
+  isAuthenticated: boolean;
 }
 
 interface AuthActions {
@@ -18,7 +18,7 @@ type AuthStatement = AuthActions & AuthState;
 const useAuthStore = create(
   persist<AuthStatement>(
     (set) => ({
-      isAuthenticated: null,
+      isAuthenticated: false,
       error: null,
       user: null,
 

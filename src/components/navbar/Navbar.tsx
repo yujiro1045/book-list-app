@@ -9,23 +9,26 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = () => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated, onLogout } = useAuthStore();
 
   return (
     <nav className="navbar">
       <h1 className="titleNavbar">My Books App</h1>
       <ul className="nav-links">
-        <li>
-          <Link to={Paths.LOGIN} className="nav-link">
-            Login
-          </Link>
-        </li>
-        <li>
-          <Link to={Paths.REGISTER} className="nav-link">
-            Register
-          </Link>
-        </li>
-        {isAuthenticated && (
+        {!isAuthenticated ? (
+          <>
+            <li>
+              <Link to={Paths.LOGIN} className="nav-link">
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link to={Paths.REGISTER} className="nav-link">
+                Register
+              </Link>
+            </li>
+          </>
+        ) : (
           <>
             <li>
               <Link to={Paths.BOOKS} className="nav-link">
@@ -35,6 +38,11 @@ const Navbar: React.FC<NavbarProps> = () => {
             <li>
               <Link to={Paths.LIST} className="nav-link">
                 Lista de lectura
+              </Link>
+            </li>
+            <li>
+              <Link to="#" onClick={onLogout} className="nav-link">
+                Cerrar sesión
               </Link>
             </li>
           </>

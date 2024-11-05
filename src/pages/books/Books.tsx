@@ -12,7 +12,7 @@ const Books: React.FC<Book> = () => {
     useBookStore();
 
   const genres = [
-    ...new Set(books.library.map((item) => item.book.genre)),
+    ...new Set(books.library.map((item) => item.book.genre || "Desconocido")),
     "Todos",
   ];
 
@@ -28,6 +28,10 @@ const Books: React.FC<Book> = () => {
   }, [selectedGenre, books.library]);
 
   const toggleFavorite = (book: Book) => {
+    if (!book.ISBN) {
+      console.error("No se puede agregar el libro sin un ISBN.");
+      return;
+    }
     const isFavorite = readingList.find((fav) => fav.ISBN === book.ISBN);
     if (isFavorite) {
       removeFromReadingList(book.ISBN);

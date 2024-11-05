@@ -1,5 +1,4 @@
 import "./Reading.css";
-import { Book } from "../../types/booksInterface";
 import Card from "../../components/common/card/Card";
 import React from "react";
 import useBookStore from "../../store/useBookStore";
@@ -13,7 +12,7 @@ const ReadingList: React.FC = () => {
 
   return (
     <>
-      <h1>Lista de lectura</h1>
+      <h1 className="title-reading">Lista de lectura</h1>
       <div className="cards-container">
         <div className="cards">
           <ul className="cards-grid">
@@ -22,14 +21,16 @@ const ReadingList: React.FC = () => {
                 <Card
                   key={index}
                   title={book.title}
-                  author={book.author?.name}
+                  author={{ name: book.author?.name }}
                   year={book.year}
                   cover={book.cover}
-                  onRemove={() => handleRemoveBook(book.ISBN)}
+                  onRemove={() => handleRemoveBook(book.ISBN!)}
                 />
               ))
             ) : (
-              <p>No tienes libros en tu lista de lectura.</p>
+              <p className="empty-message">
+                No tienes libros en tu lista de lectura...
+              </p>
             )}
           </ul>
         </div>
