@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { books } from "../../data/books";
-import "./Books.css";
 import CustomButton from "../../components/common/button/CustomButton";
 import { Book } from "../../types/booksInterface";
 import useBookStore from "../../store/useBookStore";
+import "./Books.css";
 
 const Books: React.FC<Book> = () => {
   const [selectedGenre, setSelectedGenre] = useState("Todos");
@@ -80,8 +80,8 @@ const Books: React.FC<Book> = () => {
                   onClick={() => toggleFavorite(item.book)}
                 >
                   {readingList.find((fav) => fav.ISBN === item.book.ISBN)
-                    ? "Quitar de Lista de lectura"
-                    : "Agregar a Lista de lectura"}
+                    ? "Quitar"
+                    : "Agregar"}
                 </CustomButton>
               </div>
             </div>

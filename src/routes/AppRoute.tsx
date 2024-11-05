@@ -13,10 +13,18 @@ function AppRoutes() {
 
   return (
     <Layout>
-      <Navbar isAuthenticated={isAuthenticated} />
+      <Navbar />
       <Routes>
-        <Route path={Paths.LOGIN} element={<Login />} />
-        <Route path={Paths.REGISTER} element={<Register />} />
+        <Route
+          path={Paths.LOGIN}
+          element={isAuthenticated ? <Navigate to={Paths.BOOKS} /> : <Login />}
+        />
+        <Route
+          path={Paths.REGISTER}
+          element={
+            isAuthenticated ? <Navigate to={Paths.BOOKS} /> : <Register />
+          }
+        />
         <Route
           path={Paths.BOOKS}
           element={isAuthenticated ? <Books /> : <Navigate to={Paths.LOGIN} />}

@@ -1,14 +1,9 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { Paths } from "../../constant/path";
-import React from "react";
 import useAuthStore from "../../store/useAuthStore";
 
-interface NavbarProps {
-  isAuthenticated: Boolean;
-}
-
-const Navbar: React.FC<NavbarProps> = () => {
+const Navbar = () => {
   const { isAuthenticated, onLogout } = useAuthStore();
 
   return (
