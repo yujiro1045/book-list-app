@@ -1,3 +1,18 @@
+:root {
+  --primary-100: #3a405a;
+  --primary-200: #656b87;
+  --primary-300: #c4c9e9;
+  --accent-100: #f28482;
+  --accent-200: #88262d;
+  --text-100: #1e1e24;
+  --text-200: #45454c;
+  --bg-100: #f9f8f7;
+  --bg-200: #efeeed;
+  --bg-300: #c6c5c4;
+}
+
 body {
-  background-color: #f5f7fa;
+  background-color: var(--bg-300);
+  color: var(--text-100);
+  font-family: Arial, sans-serif;
 }

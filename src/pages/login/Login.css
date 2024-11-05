@@ -9,22 +9,23 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 400px;
   margin: 0 auto;
+  margin-top: 20px;
 }
 
-.title {
+.title-login {
   margin-bottom: 20px;
   text-align: center;
-  color: #3669c9;
+  color: var(--text-200);
 }
 
-.input {
+.inputs {
   height: 40px;
   border: 1px solid #ccc;
-  margin-bottom: 15px;
   padding: 10px;
   border-radius: 5px;
-  /* width: 100%; */
+  width: 400px;
   font-size: 16px;
+  background-color: red;
 }
 
 .button-container {
@@ -33,7 +34,7 @@
   flex-direction: column;
 }
 
-.button {
+.buttons {
   height: 40px;
   background-color: #3669c9;
   color: #fff;

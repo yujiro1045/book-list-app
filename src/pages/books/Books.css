@@ -7,7 +7,7 @@
 
 .books-title {
   font-size: 24px;
-  color: #fff;
+  color: var(--text-100);
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
@@ -47,6 +47,7 @@
   transition: transform 0.2s;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   position: relative;
+  background-color: var(--bg-100);
 }
 
 .book-item:hover {

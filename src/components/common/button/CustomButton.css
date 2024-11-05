@@ -1,6 +1,6 @@
 .button {
-  background-color: #3669c9;
-  color: #fff;
+  background-color: var(--primary-200);
+  color: var(--bg-100);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -8,23 +8,23 @@
 }
 
 .button:hover {
-  background-color: #2c5db0;
+  background-color: var(--primary-100);
 }
 
 .button.small {
   padding: 0px;
-  width: 120px; /* Ancho específico para el botón pequeño */
-  height: 45px; /* Altura */
+  width: 120px;
+  height: 45px;
 }
 
 .button.medium {
   padding: 10px;
-  width: 180px; /* Ancho específico para el botón mediano */
-  height: 45px; /* Altura */
+  width: 180px;
+  height: 45px;
 }
 
 .button.large {
   padding: 15px;
-  width: 250px; /* Ancho específico para el botón grande */
-  height: 45px; /* Altura */
+  width: 250px;
+  height: 45px;
 }

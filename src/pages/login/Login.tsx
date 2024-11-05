@@ -21,7 +21,7 @@ const Login = () => {
 
   return (
     <form className="containerLogin" onSubmit={handleSubmit(handleLogin)}>
-      <h2 className="title">Iniciar Sesión</h2>
+      <h2 className="title-login">Iniciar Sesión</h2>
       <CustomInput
         type="email"
         placeholder="Correo"

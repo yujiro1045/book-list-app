@@ -21,7 +21,7 @@ const Register = () => {
 
   return (
     <form className="containerRegister" onSubmit={handleSubmit(handleRegister)}>
-      <h2 className="title">Crear Cuenta</h2>
+      <h2 className="title-register">Crear Cuenta</h2>
       <CustomInput
         type="text"
         placeholder="Nombre"

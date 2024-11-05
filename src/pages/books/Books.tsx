@@ -42,7 +42,7 @@ const Books: React.FC<Book> = () => {
 
   return (
     <div className="books-container">
-      <h1 className="books-title">Books</h1>
+      <h1 className="books-title">Líbros disponibles</h1>
 
       <div className="filter-genre">
         <label htmlFor="genre-select">Filtrar por Género:</label>

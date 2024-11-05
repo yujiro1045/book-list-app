@@ -8,7 +8,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <h1 className="titleNavbar">My Books App</h1>
+      <h1 className="titleNavbar">Mi aplicación de líbros</h1>
       <ul className="nav-links">
         {!isAuthenticated ? (
           <>
@@ -27,7 +27,7 @@ const Navbar = () => {
           <>
             <li>
               <Link to={Paths.BOOKS} className="nav-link">
-                Books
+                Líbros
               </Link>
             </li>
             <li>

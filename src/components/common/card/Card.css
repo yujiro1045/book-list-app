@@ -23,6 +23,7 @@
 
 .card-container {
   padding: 1rem;
+  background-color: var(--bg-100);
 }
 
 .card-title {
