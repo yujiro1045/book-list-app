@@ -1,10 +1,10 @@
-import React from "react";
 import "./Login.css";
 import CustomButton from "../../components/common/button/CustomButton";
 import { useLogin } from "./useLogin";
 import { useNavigate } from "react-router-dom";
 import { Paths } from "../../constant/path";
 import { ONLY_EMAIL_REGEX } from "../../helpers/constants/regex/email-regex.helper";
+import CustomInput from "../../components/common/input/CustomInput";
 
 const REQUIRED_MESSAGE = "Este campo es requerido";
 
@@ -19,16 +19,13 @@ const Login = () => {
     register,
   } = methods;
 
-  const emailErrors = errors.correo;
-  const passwordErrors = errors.password;
-
   return (
     <form className="containerLogin" onSubmit={handleSubmit(handleLogin)}>
       <h2 className="title">Iniciar Sesión</h2>
-      <input
+      <CustomInput
         type="email"
         placeholder="Correo"
-        className={`input ${emailErrors ? "input-error" : ""}`}
+        label="Correo"
         {...register("correo", {
           required: REQUIRED_MESSAGE,
           pattern: {
@@ -36,24 +33,22 @@ const Login = () => {
             message: "Formato de correo inválido",
           },
         })}
+        error={errors.correo}
       />
-      {emailErrors && <p className="error-message">{emailErrors.message}</p>}
 
-      <input
+      <CustomInput
         type="password"
         placeholder="Contraseña"
-        className={`input ${passwordErrors ? "input-error" : ""}`}
+        label="Contraseña"
         {...register("password", {
           required: REQUIRED_MESSAGE,
           minLength: {
             value: 8,
-            message: "La contraseña debe tener minimo 8 caracteres",
+            message: "La contraseña debe tener mínimo 8 caracteres",
           },
         })}
+        error={errors.password}
       />
-      {passwordErrors && (
-        <p className="error-message">{passwordErrors.message}</p>
-      )}
 
       <div className="button-container">
         <CustomButton loading={isLoading} size="large" type="submit">

@@ -1,0 +1,29 @@
+.input-container {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.input {
+  height: 40px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.input-error {
+  border: 1px solid red;
+}
+
+.input-label {
+  margin-bottom: 5px;
+  color: #3669c9;
+  font-size: 14px;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}

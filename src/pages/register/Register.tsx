@@ -1,10 +1,10 @@
-import React from "react";
 import "./Register.css";
 import CustomButton from "../../components/common/button/CustomButton";
 import { useRegister } from "./useRegister";
 import { useNavigate } from "react-router-dom";
 import { Paths } from "../../constant/path";
 import { ONLY_EMAIL_REGEX } from "../../helpers/constants/regex/email-regex.helper";
+import CustomInput from "../../components/common/input/CustomInput";
 
 const REQUIRED_MESSAGE = "Este campo es requerido";
 
@@ -22,22 +22,23 @@ const Register = () => {
   return (
     <form className="containerRegister" onSubmit={handleSubmit(handleRegister)}>
       <h2 className="title">Crear Cuenta</h2>
-      <input
+      <CustomInput
         type="text"
         placeholder="Nombre"
-        className={`input ${errors.nombre ? "input-error" : "input-valid"}`}
+        label="Nombre"
         {...register("nombre", {
           required: REQUIRED_MESSAGE,
         })}
+        error={errors.nombre}
       />
       {errors.nombre && (
         <p className="error-message">{errors.nombre.message}</p>
       )}
 
-      <input
+      <CustomInput
         type="email"
         placeholder="Correo"
-        className={`input ${errors.correo ? "input-error" : ""}`}
+        label="Correo"
         {...register("correo", {
           required: REQUIRED_MESSAGE,
           pattern: {
@@ -45,32 +46,35 @@ const Register = () => {
             message: "Formato de correo inválido",
           },
         })}
+        error={errors.correo}
       />
       {errors.correo && (
         <p className="error-message">{errors.correo.message}</p>
       )}
 
-      <input
+      <CustomInput
         type="password"
         placeholder="Contraseña"
-        className={`input ${errors.password ? "input-error" : ""}`}
+        label="Contraseña"
         {...register("password", {
           required: REQUIRED_MESSAGE,
           minLength: {
             value: 8,
-            message: "La contraseña debe tener minimo 8 caracteres",
+            message: "La contraseña debe tener mínimo 8 caracteres",
           },
         })}
+        error={errors.password}
       />
       {errors.password && (
         <p className="error-message">{errors.password.message}</p>
       )}
 
-      <input
+      <CustomInput
         type="number"
         placeholder="Documento"
-        className={`input ${errors.documento ? "input-error" : ""}`}
+        label="Documento"
         {...register("documento", { required: REQUIRED_MESSAGE })}
+        error={errors.documento}
       />
       {errors.documento && (
         <p className="error-message">{errors.documento.message}</p>

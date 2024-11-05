@@ -25,7 +25,7 @@ const Books: React.FC<Book> = () => {
         : books.library.filter((item) => item.book.genre === selectedGenre);
 
     setFilteredBooks(updatedFilteredBooks);
-  }, [selectedGenre, books.library]);
+  }, [selectedGenre]);
 
   const toggleFavorite = (book: Book) => {
     if (!book.ISBN) {
@@ -67,28 +67,25 @@ const Books: React.FC<Book> = () => {
 
       <ul className="books-grid">
         {filteredBooks.map((item, index) => (
-          <div className="book-item">
-            <li key={index}>
+          <li key={index} className="book-item">
+            <img src={item.book.cover} alt={`Cover of ${item.book.title}`} />
+            <div className="book-details">
               <h2>{item.book.title}</h2>
-              <img src={item.book.cover} alt={`Cover of ${item.book.title}`} />
               <p>Número de páginas: {item.book.pages}</p>
               <p>Género: {item.book.genre}</p>
-              <p>Autor: {item.book.author.name}</p>
               <p>Sinopsis: {item.book.synopsis}</p>
-              <p>Año: {item.book.year}</p>
-              <p>Otros libros: {item.book.author.otherBooks.join(", ")}</p>
-            </li>
-            <div className="button-add">
-              <CustomButton
-                size="small"
-                onClick={() => toggleFavorite(item.book)}
-              >
-                {readingList.find((fav) => fav.ISBN === item.book.ISBN)
-                  ? "Quitar de Lista de lectura"
-                  : "Agregar a Lista de lectura"}
-              </CustomButton>
+              <div className="button-add">
+                <CustomButton
+                  size="small"
+                  onClick={() => toggleFavorite(item.book)}
+                >
+                  {readingList.find((fav) => fav.ISBN === item.book.ISBN)
+                    ? "Quitar de Lista de lectura"
+                    : "Agregar a Lista de lectura"}
+                </CustomButton>
+              </div>
             </div>
-          </div>
+          </li>
         ))}
       </ul>
     </div>
