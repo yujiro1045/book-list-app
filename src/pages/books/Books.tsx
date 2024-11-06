@@ -8,6 +8,7 @@ import "./Books.css";
 const Books: React.FC<Book> = () => {
   const [selectedGenre, setSelectedGenre] = useState("Todos");
   const [filteredBooks, setFilteredBooks] = useState<BookData[]>(books);
+
   const { readingList, addToReadingList, removeFromReadingList } =
     useBookStore();
 
@@ -19,15 +20,6 @@ const Books: React.FC<Book> = () => {
   const availableBooksCount = filteredBooks.filter(
     (item) => !readingList.some((book) => book.ISBN === item.book.ISBN)
   ).length;
-
-  useEffect(() => {
-    const updatedFilteredBooks =
-      selectedGenre === "Todos"
-        ? books
-        : books.filter((item) => item.book.genre === selectedGenre);
-
-    setFilteredBooks(updatedFilteredBooks);
-  }, [selectedGenre]);
 
   const toggleFavorite = (book: Book) => {
     if (!book.ISBN) {
@@ -41,6 +33,15 @@ const Books: React.FC<Book> = () => {
       addToReadingList(book);
     }
   };
+
+  useEffect(() => {
+    const updatedFilteredBooks =
+      selectedGenre === "Todos"
+        ? books
+        : books.filter((item) => item.book.genre === selectedGenre);
+
+    setFilteredBooks(updatedFilteredBooks);
+  }, [selectedGenre]);
 
   return (
     <div className="books-container">

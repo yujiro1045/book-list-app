@@ -31,9 +31,6 @@ const Register = () => {
         })}
         error={errors.nombre}
       />
-      {errors.nombre && (
-        <p className="error-message">{errors.nombre.message}</p>
-      )}
 
       <CustomInput
         type="email"
@@ -48,9 +45,6 @@ const Register = () => {
         })}
         error={errors.correo}
       />
-      {errors.correo && (
-        <p className="error-message">{errors.correo.message}</p>
-      )}
 
       <CustomInput
         type="password"
@@ -65,9 +59,6 @@ const Register = () => {
         })}
         error={errors.password}
       />
-      {errors.password && (
-        <p className="error-message">{errors.password.message}</p>
-      )}
 
       <CustomInput
         type="number"
@@ -76,9 +67,6 @@ const Register = () => {
         {...register("documento", { required: REQUIRED_MESSAGE })}
         error={errors.documento}
       />
-      {errors.documento && (
-        <p className="error-message">{errors.documento.message}</p>
-      )}
 
       <div className="button-container">
         <CustomButton loading={isLoading} size="large" type="submit">

@@ -1,6 +1,8 @@
 .input-container {
   width: 100%;
+  max-width: 400px;
   padding: 10px;
+  margin: 0 auto;
 }
 
 .input {
@@ -8,8 +10,9 @@
   border: 1px solid var(--text-200);
   padding: 10px;
   border-radius: 5px;
-  width: 380px;
+  width: 100%;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 .input-error {
@@ -26,4 +29,23 @@
   color: var(--accent-200);
   font-size: 0.9rem;
   margin-top: 0.3rem;
+}
+
+@media (max-width: 480px) {
+  .input-container {
+    padding: 8px;
+  }
+
+  .input {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .input-label {
+    font-size: 13px;
+  }
+
+  .error-message {
+    font-size: 0.8rem;
+  }
 }
