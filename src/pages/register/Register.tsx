@@ -24,7 +24,7 @@ const Register = () => {
       <h2 className="title-register">Crear Cuenta</h2>
       <CustomInput
         type="text"
-        placeholder="Nombre"
+        placeholder="Ingresa tu nombre"
         label="Nombre"
         {...register("nombre", {
           required: REQUIRED_MESSAGE,
@@ -34,7 +34,7 @@ const Register = () => {
 
       <CustomInput
         type="email"
-        placeholder="Correo"
+        placeholder="Ingresa tu correo"
         label="Correo"
         {...register("correo", {
           required: REQUIRED_MESSAGE,
@@ -48,7 +48,7 @@ const Register = () => {
 
       <CustomInput
         type="password"
-        placeholder="Contraseña"
+        placeholder="Ingresa tu contraseña"
         label="Contraseña"
         {...register("password", {
           required: REQUIRED_MESSAGE,
@@ -62,7 +62,7 @@ const Register = () => {
 
       <CustomInput
         type="number"
-        placeholder="Documento"
+        placeholder="Ingresa tu numero de documento"
         label="Documento"
         {...register("documento", { required: REQUIRED_MESSAGE })}
         error={errors.documento}

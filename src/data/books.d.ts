@@ -1,7 +1,7 @@
-import { Book } from "../types/booksInterface";
+import { BookData } from "../types/books.type";
 
 export declare const books: {
   library: {
-    book: Book;
+    book: BookData;
   }[];
 };
