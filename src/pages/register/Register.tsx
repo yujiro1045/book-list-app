@@ -2,7 +2,7 @@ import "./Register.css";
 import CustomButton from "../../components/common/button/CustomButton";
 import { useRegister } from "./useRegister";
 import { useNavigate } from "react-router-dom";
-import { Paths } from "../../constant/path";
+import { Paths } from "../../enum/path.enum";
 import { ONLY_EMAIL_REGEX } from "../../helpers/constants/regex/email-regex.helper";
 import CustomInput from "../../components/common/input/CustomInput";
 

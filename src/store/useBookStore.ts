@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Book } from "../types/booksInterface";
+import { Book } from "../types/books.type";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 interface BookState {

@@ -4,7 +4,9 @@ import React from "react";
 import useBookStore from "../../store/useBookStore";
 
 const ReadingList: React.FC = () => {
-  const { readingList, removeFromReadingList, setReadingList } = useBookStore();
+  const { readingList, removeFromReadingList } = useBookStore();
+
+  const booksInReadingList = readingList.length;
 
   const handleRemoveBook = (ISBN: string) => {
     removeFromReadingList(ISBN);
@@ -13,6 +15,11 @@ const ReadingList: React.FC = () => {
   return (
     <>
       <h1 className="title-reading">Lista de lectura</h1>
+
+      <div className="reading-list-counter">
+        <p>Libros en lista de lectura: {booksInReadingList}</p>
+      </div>
+
       <div className="cards-container">
         <div className="cards">
           <ul className="cards-grid">

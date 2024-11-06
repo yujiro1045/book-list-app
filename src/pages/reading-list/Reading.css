@@ -11,6 +11,13 @@
   padding-bottom: 50px;
 }
 
+.reading-list-counter {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding-left: 20px;
+}
+
 .cards {
   justify-content: center;
   align-items: center;
@@ -25,7 +32,8 @@
 }
 
 .empty-message {
-  font-size: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
   text-align: center;
   width: 100%;
   padding: 10px;

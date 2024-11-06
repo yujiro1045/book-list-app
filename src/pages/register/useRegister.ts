@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Paths } from "../../constant/path";
+import { Paths } from "../../enum/path.enum";
 import { register } from "../../services/auth/registerService";
 import { RegisterResponseDto } from "../../types/dto/register.dto";
 import { useForm } from "react-hook-form";

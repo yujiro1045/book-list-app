@@ -1,4 +1,4 @@
-import { API_URL } from "../../constant";
+import { API_URL } from "../../helpers/constants/env/env.constant.helper";
 import {
   RegisterRequestDto,
   RegisterResponseDto,

@@ -3,7 +3,7 @@ import Layout from "../components/layout/Layout";
 import Login from "../pages/login/Login";
 import Register from "../pages/register/Register";
 import Books from "../pages/books/Books";
-import { Paths } from "../constant/path";
+import { Paths } from "../enum/path.enum";
 import ReadingList from "../pages/reading-list/ReadingList";
 import Navbar from "../components/navbar/Navbar";
 import useAuthStore from "../store/useAuthStore";

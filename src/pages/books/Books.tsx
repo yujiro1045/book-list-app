@@ -1,28 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { books } from "../../data/books";
-import CustomButton from "../../components/common/button/CustomButton";
-import { Book } from "../../types/booksInterface";
+import { Book, BookData } from "../../types/books.type";
 import useBookStore from "../../store/useBookStore";
+import { BookItem } from "./item/BookItem";
 import "./Books.css";
 
 const Books: React.FC<Book> = () => {
   const [selectedGenre, setSelectedGenre] = useState("Todos");
-  const [filteredBooks, setFilteredBooks] = useState(books.library);
+  const [filteredBooks, setFilteredBooks] = useState<BookData[]>(books);
   const { readingList, addToReadingList, removeFromReadingList } =
     useBookStore();
 
   const genres = [
-    ...new Set(books.library.map((item) => item.book.genre || "Desconocido")),
+    ...new Set(books.map((item) => item.book.genre || "Desconocido")),
     "Todos",
   ];
 
-  const totalBooks = filteredBooks.length;
+  const availableBooksCount = filteredBooks.filter(
+    (item) => !readingList.some((book) => book.ISBN === item.book.ISBN)
+  ).length;
 
   useEffect(() => {
     const updatedFilteredBooks =
       selectedGenre === "Todos"
-        ? books.library
-        : books.library.filter((item) => item.book.genre === selectedGenre);
+        ? books
+        : books.filter((item) => item.book.genre === selectedGenre);
 
     setFilteredBooks(updatedFilteredBooks);
   }, [selectedGenre]);
@@ -46,6 +48,7 @@ const Books: React.FC<Book> = () => {
 
       <div className="filter-genre">
         <label htmlFor="genre-select">Filtrar por Género:</label>
+
         <select
           id="genre-select"
           value={selectedGenre}
@@ -61,33 +64,26 @@ const Books: React.FC<Book> = () => {
 
       <div>
         <p className="books-available">
-          Número de libros disponibles: {totalBooks}
+          Número de libros disponibles: {availableBooksCount}
         </p>
       </div>
 
-      <ul className="books-grid">
-        {filteredBooks.map((item, index) => (
-          <li key={index} className="book-item">
-            <img src={item.book.cover} alt={`Cover of ${item.book.title}`} />
-            <div className="book-details">
-              <h2>{item.book.title}</h2>
-              <p>Número de páginas: {item.book.pages}</p>
-              <p>Género: {item.book.genre}</p>
-              <p>Sinopsis: {item.book.synopsis}</p>
-              <div className="button-add">
-                <CustomButton
-                  size="small"
-                  onClick={() => toggleFavorite(item.book)}
-                >
-                  {readingList.find((fav) => fav.ISBN === item.book.ISBN)
-                    ? "Quitar"
-                    : "Agregar"}
-                </CustomButton>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <section className="books-grid">
+        {filteredBooks.map((item) => {
+          const isFavorite = readingList.some(
+            (fav) => fav.ISBN === item.book.ISBN
+          );
+
+          return (
+            <BookItem
+              book={item.book}
+              key={item.book.ISBN}
+              toggleFavorite={toggleFavorite}
+              isFavorite={isFavorite}
+            />
+          );
+        })}
+      </section>
     </div>
   );
 };

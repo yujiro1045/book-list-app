@@ -19,7 +19,6 @@ const useAuthStore = create(
   persist<AuthStatement>(
     (set) => ({
       isAuthenticated: false,
-      error: null,
       user: null,
 
       onLogout() {

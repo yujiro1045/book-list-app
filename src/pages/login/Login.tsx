@@ -2,7 +2,7 @@ import "./Login.css";
 import CustomButton from "../../components/common/button/CustomButton";
 import { useLogin } from "./useLogin";
 import { useNavigate } from "react-router-dom";
-import { Paths } from "../../constant/path";
+import { Paths } from "../../enum/path.enum";
 import { ONLY_EMAIL_REGEX } from "../../helpers/constants/regex/email-regex.helper";
 import CustomInput from "../../components/common/input/CustomInput";
 
@@ -24,7 +24,7 @@ const Login = () => {
       <h2 className="title-login">Iniciar Sesión</h2>
       <CustomInput
         type="email"
-        placeholder="Correo"
+        placeholder="Ingresa tu correo"
         label="Correo"
         {...register("correo", {
           required: REQUIRED_MESSAGE,
@@ -38,7 +38,7 @@ const Login = () => {
 
       <CustomInput
         type="password"
-        placeholder="Contraseña"
+        placeholder="Ingresa tu contraseña"
         label="Contraseña"
         {...register("password", {
           required: REQUIRED_MESSAGE,

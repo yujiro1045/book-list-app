@@ -17,6 +17,7 @@
     "jsx": "react-jsx",
     "types": ["jest", "node"]
   },
+  "lib": ["WebWorker"],
   "include": ["src", "jest.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

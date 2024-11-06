@@ -1,4 +1,4 @@
-import { API_URL } from "../../constant";
+import { API_URL } from "../../helpers/constants/env/env.constant.helper";
 import { LoginRequestDto, LoginResponseDto } from "../../types/dto/login.dto";
 
 export const login = async (

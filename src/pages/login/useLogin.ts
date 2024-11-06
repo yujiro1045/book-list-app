@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Paths } from "../../constant/path";
+import { Paths } from "../../enum/path.enum";
 import { login } from "../../services/auth/loginService";
 import useAuthStore from "../../store/useAuthStore";
 

@@ -12,3 +12,5 @@ export interface Book {
   pages?: number;
   onRemove?: () => void;
 }
+
+export type BookData = { book: Book };
